@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<!-- T O P   T I M E   B A R -->
+			<div class="container" id="timeBar">
+				<h1 id="hours"><span id="inputHours">-</span>Hours</h1>
+				<h1 id="minutes"><span id="inputMinutes">-</span>Minutes</h1>
+				<h1 id="progress"><span id="inputProgress">-</span>sp Crafted</h1>
+				<div id="hourMinuteToggle">
+					<input type="checkbox" name="Minutes to Hours" id="timeToggle" onchange="hourMinuteChange()">
+					<label for="timeToggle" id="timeLabel">Minutes to Hours</label>
+				</div>
+			</div>
+			<!-- M I D D L E   E N T R Y   S E C T I O N -->
+			<div class="container" id="entrySection">
+				<!-- C H E C K S   A N D    D I F F I C U L T I E S -->
+				<div id="difficulties">
+					<input type="number" placeholder="Craft Check" name="Craft Check" id="crC">
+					<input type="number" placeholder="Item DC" name="Item DC" id="itDC">
+					<input type="number" placeholder="DC Modifier" name="DC Modifier" id="modDC">
+				</div>
+				<!-- C R A F T I N G   C O S T S  -->
+				<div id="craftingCosts">
+					<input type="number" placeholder="Item Value" name="Item Value" id="itVal" oninput="costCalc()">
+					<input type="number" placeholder="Crafting Costs" name="Crafting Costs" id="crCos" readonly>
+				</div>
+				<!-- S P E C I A L I Z A T I O N S -->
+				<div id="specializationOptions">
+					<!-- U N C H A I N E D -->
+					<div id="unchainedOptions">
+						<div id="rank5">
+							<input type="checkbox" name="Unchained Rank 5" id="Ur5">
+							<label for="Ur5" id="Ur5Label">Unchained Rank 5</label>
+						</div>
+						<div id="rank15">
+							<input type="checkbox" name="Unchained Rank 15" id="Ur15">
+							<label for="Ur15" id="Ur15Label">Unchained Rank 15</label>
+						</div>
+					</div>
+					<!-- A L C H E M Y  -->
+					<div id="alchemyOptions">
+						<div id="swift">
+							<input type="checkbox" name="Swift Alchemy" id="swA">
+							<label for="swA" id="swAlabel">Swift Alchemy</label>
+						</div>
+						<div id="master">
+							<input type="checkbox" name="Master Alchemist" id="msA">
+							<label for="msA" id="msAlabel">Master Alchemist</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- B U T T O N -->
+			<input type="button" id="calculateButton" onclick="craftCalc()" value="Calculate">
+		</div>
+
+
+		<script>
+			var val;
+			var u5mod;
+			var u15mod;
+			var sA;
+			var mA;
+			var prog;
+			var weekDays = 7;
+			var workHours = 8;
+			
+			// function tryOut() {
+				// 	console.log('test');
+			// }
+			function hourMinuteChange() {
+				var hourMinute = document.getElementById('timeToggle').checked;
+				if (hourMinute === false) {
+					document.getElementById('hours').style.display = 'none';
+					document.getElementById('minutes').style.display = 'block';
+				} else {
+					document.getElementById('hours').style.display = 'block';
+					document.getElementById('minutes').style.display = 'none';
+				}
+			}
+			function costCalc() {
+				giveVal();
+				var cost = val/4;
+				return document.getElementById('crCos').value = cost;
+			}
+			function giveVal() {
+				val = Number(document.getElementById('itVal').value);
+				return val;
+			}
+			function optionCheck() {
+				checkUnchained5();
+				checkUnchained15();
+				checkSwiftAlchemy();
+				checkMasterAlchemist();
+			}
+			function checkUnchained5() {
+				var chain5 = document.getElementById('Ur5').checked;
+				if (chain5 === true) {
+					u5mod = 2;
+				} else {
+					u5mod = 1;
+				}
+				return u5mod;
+			}
+			function checkUnchained15() {
+				var chain15 = document.getElementById('Ur15').checked;
+				if (chain15 === true) {
+					u15mod = weekDays;
+				} else {
+					u15mod = 1;
+				}
+				return u15mod;
+			}
+			function checkSwiftAlchemy() {
+				var swiftAlc = document.getElementById('swA').checked;
+				if (swiftAlc === true) {
+					sA = 2;
+				} else {
+					sA = 1;
+				}
+				return sA;
+			}
+			function checkMasterAlchemist() {
+				var mastAlc = document.getElementById('msA').checked;
+				if (mastAlc === true) {
+					mA = 10;
+				} else {
+					mA = 1;
+				}
+				return mA;
+			}
+			function progressCheck() {
+				var check = Number(document.getElementById('crC').value);
+				var DC = Number(document.getElementById('itDC').value);
+				var DCmod = Number(document.getElementById('modDC').value);
+				if (DCmod > 0) {
+					prog = ((check*u5mod)*(DC+DCmod)*mA);
+				} else {
+					prog = (check*u5mod)*DC*mA;
+				}
+				return prog;
+			}
+			function craftCalc() {
+				var progIn = document.getElementById('inputProgress');
+				var minIn = document.getElementById('inputMinutes');
+				var hourIn = document.getElementById('inputHours');
+				var totalTimeHours;
+				var totalTimeMinutes
+				var sp = val*10;
+
+				optionCheck();
+				progressCheck();
+
+				totalTimeHours = ((weekDays/u15mod)/((prog-sp)/sp)*workHours)/sA;
+				totalTimeMinutes = totalTimeHours * 60;
+
+				if (prog-sp <= 0) {
+					progIn.innerHTML = prog + " / " + sp;
+
+					document.getElementById('hours').style.display = 'none';
+					document.getElementById('minutes').style.display = 'none';
+					document.getElementById('timeLabel').style.display = 'none';
+					document.getElementById('progress').style.display = 'block';
+					
+				} else {
+
+					if (document.getElementById('timeToggle').checked === true) {
+						hourIn.innerHTML = totalTimeHours.toFixed(2);
+
+						document.getElementById('hours').style.display = 'block';
+						document.getElementById('timeLabel').style.display = 'block';
+						document.getElementById('progress').style.display = 'none';
+					} else {
+						minIn.innerHTML = totalTimeMinutes.toFixed(2);
+
+						document.getElementById('minutes').style.display = 'block';
+						document.getElementById('timeLabel').style.display = 'block';
+						document.getElementById('progress').style.display = 'none';
+					}
+
+					}
+				}
+		</script>
+	</body>
+</html>

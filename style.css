@@ -1,0 +1,89 @@
+body {
+	background-color: #151515;
+	color: #f2f2f2;
+	max-width: 500px;
+	font-size: 16px;
+}
+
+#hours, #minutes, #progress {
+	background-color: #B12717FF;
+	box-shadow: 5px 5px #B1271746;
+	text-align: center;
+	color: #f2f2f2;
+	border-radius: 5px;
+	font-size: 3em;
+	padding: .25em;
+}
+
+#hours, #progress {
+	display: none;
+}
+
+#calculateButton {
+	background-color: #B12717FF;
+	box-shadow: 5px 5px #B1271746;
+	color: #f2f2f2;
+	font-size: 3em;
+	padding: .2em;
+	margin: .25em 0;
+	border: 0px;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.container {
+	margin: 1em;
+}
+
+#rank5, #rank15, #swift, #master {
+	margin: 1em 0;
+}
+
+/* --= I N P U T =-- */
+input[type=number] {
+	background-color: #303030;
+	color: #f2f2f2;
+	border: 0px;
+	border-radius: 5px;
+	font-size: 1.3em;
+	margin: .1em;
+	padding: .2em .3em;
+	transition: background-color .3s ease-in;
+}
+
+input[type=number]:focus {
+	background-color: #B12717FF;
+	border: 0px; 
+	outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=checkbox] {
+	display: none;
+}
+
+input[type=checkbox]:checked + label {
+	background-color: #B12717FF;
+}
+
+label {
+	padding: .3em 1em;
+	font-size: 1.2em;
+	border: 1px solid #B12717FF;
+	border-radius: 2em;
+	transition: background-color .3s ease-in;
+	display: block;
+}
+
+
+.wrapper {
+	background-color: #202020;
+	padding: 2em;
+	border-radius: 5px;
+}
