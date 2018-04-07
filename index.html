@@ -9,26 +9,58 @@
 		<div class="wrapper">
 			<!-- T O P   T I M E   B A R -->
 			<div class="container" id="timeBar">
-				<h1 id="hours"><span id="inputHours">-</span>Hours</h1>
-				<h1 id="minutes"><span id="inputMinutes">-</span>Minutes</h1>
-				<h1 id="progress"><span id="inputProgress">-</span>sp Crafted</h1>
-				<div id="hourMinuteToggle">
+				<div id="messaging">
+					<h1 id="startMessage" class="messages">CalcuCrafter</h1>
+					<h1 id="minute" class="messages"><span id="inputMinutes"></span> Minutes</h1>
+					<h1 id="hour" class="messages"><span id="inputHours"></span> Hours</h1>
+					<h1 id="day" class="messages"><span id="inputDays"></span> Days</h1>
+					<h1 id="progress" class="messages"><span id="inputProgress"></span> sp</h1>
+				</div>
+				
+				<!--  D E P R E C A T E D   C O D E  -->
+				<!-- <div id="hourMinuteToggle">
 					<input type="checkbox" name="Minutes to Hours" id="timeToggle" onchange="hourMinuteChange()">
 					<label for="timeToggle" id="timeLabel">Minutes to Hours</label>
+				</div> -->
+
+				<div id="timeToggles">
+					<div id="newToggleMin" class="toggle">
+						<input type="checkbox" name="Minutes Button" id="checkboxMinute" onclick="chronoChange('minute')">
+						<label for="checkboxMinute" id="checkboxMinuteLabel">M</label>
+					</div>
+					<div id="newToggleHour" class="toggle">
+						<input type="checkbox" name="Hours Button" id="checkboxHour" onclick="chronoChange('hour')">
+						<label for="checkboxHour" id="checkboxHourLabel">H</label>
+					</div>
+					<div id="newToggleDay" class="toggle">
+						<input type="checkbox" name="Days Button" id="checkboxDay" onclick="chronoChange('day')">
+						<label for="checkboxDay" id="checkboxDayLabel">D</label>
+					</div>
+					<div id="newToggleProgress" class="toggle">
+						<input type="checkbox" name="Progress Button" id="checkboxProgress" onclick="chronoChange('progress')">
+						<label for="checkboxProgress" id="checkboxProgressLabel">P</label>
+					</div>
 				</div>
+
 			</div>
 			<!-- M I D D L E   E N T R Y   S E C T I O N -->
 			<div class="container" id="entrySection">
 				<!-- C H E C K S   A N D    D I F F I C U L T I E S -->
 				<div id="difficulties">
 					<input type="number" placeholder="Craft Check" name="Craft Check" id="crC">
+					<label for="crC" id="crClabel" class="numberLabel">Craft Check</label>
 					<input type="number" placeholder="Item DC" name="Item DC" id="itDC">
-					<input type="number" placeholder="DC Modifier" name="DC Modifier" id="modDC">
+					<label for="itDC" id="itDClabel" class="numberLabel">Item DC</label>
+					<input type="number" placeholder="DC Modifier" name="DC Modifier" id="
+					modDC">
+					<label for="modDC" id="modDClabel" class="numberLabel">DC Modifier</label>
 				</div>
 				<!-- C R A F T I N G   C O S T S  -->
 				<div id="craftingCosts">
 					<input type="number" placeholder="Item Value" name="Item Value" id="itVal" oninput="costCalc()">
+					<label for="itVal" id="itValLabel" class="numberLabel">Item Value (gp)</label>
 					<input type="number" placeholder="Crafting Costs" name="Crafting Costs" id="crCos" readonly>
+					<label for="crCos" id="crCosLabel" class="numberLabel">Crafting Costs (gp)</label>
 				</div>
 				<!-- S P E C I A L I Z A T I O N S -->
 				<div id="specializationOptions">

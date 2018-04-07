@@ -5,7 +5,7 @@ body {
 	font-size: 16px;
 }
 
-#hours, #minutes, #progress {
+#messaging h1 {
 	background-color: #B12717FF;
 	box-shadow: 5px 5px #B1271746;
 	text-align: center;
@@ -15,7 +15,7 @@ body {
 	padding: .25em;
 }
 
-#hours, #progress {
+#messaging  h1:not(#startMessage) {
 	display: none;
 }
 
@@ -68,19 +68,49 @@ input[type=checkbox] {
 	display: none;
 }
 
-input[type=checkbox]:checked + label {
+input[type=checkbox]:checked ~ label {
 	background-color: #B12717FF;
 }
 
-label {
+label:not(.numberLabel) {
 	padding: .3em 1em;
 	font-size: 1.2em;
 	border: 1px solid #B12717FF;
 	border-radius: 2em;
 	transition: background-color .3s ease-in;
 	display: block;
+	background-color: #B1271746;
 }
 
+input:read-only {
+	background-color:#252525;
+}
+
+#crCos:focus {
+	background-color: #252525;
+}
+
+#specializationOptions , #timeToggles {
+	display: flex;
+	justify-content: space-between;
+}
+
+#unchainedOptions, #alchemyOptions {
+	width: 48%;
+	text-align: center;
+
+}
+
+.toggle > label {
+	width: 2em;
+	height: 2em;
+	padding: .25em;
+	text-align: center;
+	border-radius: 50%;
+	line-height: 2em;
+	font-size: 1.3em;
+	font-weight: bold;
+}
 
 .wrapper {
 	background-color: #202020;

@@ -7,24 +7,73 @@ var prog;
 var weekDays = 7;
 var workHours = 8;
 
-// function tryOut() {
-// 	console.log('test');
+// 		--= D E P R E C A T E D   C O D E =--
+// function hourMinuteChange() {
+//     var hourMinute = document.getElementById('timeToggle').checked;
+//     if (hourMinute === false) {
+//         document.getElementById('hours').style.display = 'none';
+//         document.getElementById('minutes').style.display = 'block';
+//     } else {
+//         document.getElementById('hours').style.display = 'block';
+//         document.getElementById('minutes').style.display = 'none';
+//     }
 // }
-function hourMinuteChange() {
-    var hourMinute = document.getElementById('timeToggle').checked;
-    if (hourMinute === false) {
-        document.getElementById('hours').style.display = 'none';
-        document.getElementById('minutes').style.display = 'block';
-    } else {
-        document.getElementById('hours').style.display = 'block';
-        document.getElementById('minutes').style.display = 'none';
-    }
+
+function elementHider() {
+	var elementSelect = document.getElementsByClassName('messages');
+	var i;
+	for (i = 0; i < elementSelect.length; i++) {
+			elementSelect[i].style.display = "none";
+		}
+}
+
+
+function chronoChange(type) {
+	var minuteToggle = document.getElementById('checkboxMinute');
+	var hourToggle = document.getElementById('checkboxHour');
+	var dayToggle = document.getElementById('checkboxDay');
+	var progressToggle = document.getElementById('checkboxProgress');
+	var elementSelect = document.getElementsByClassName('messages');
+
+	if (type === "minute") {
+		hourToggle.checked = false;
+		dayToggle.checked = false;
+		progressToggle.checked = false;
+
+		elementHider();
+		document.querySelector("#minute").style.display = "block";
+
+	} else if (type === 'hour') {
+		minuteToggle.checked = false;
+		dayToggle.checked = false;
+		progressToggle.checked = false;
+
+		elementHider();
+		document.querySelector("#hour").style.display = "block";
+
+	} else if (type === 'day') {
+		minuteToggle.checked = false;
+		hourToggle.checked = false;
+		progressToggle.checked = false;
+
+		elementHider();
+		document.querySelector("#day").style.display = "block";
+
+	} else if (type === 'progress') {
+		minuteToggle.checked = false;
+		hourToggle.checked = false;
+		dayToggle.checked = false;
+
+		elementHider();
+		document.querySelector("#progress").style.display = "block";
+
+	}
 }
 
 function costCalc() {
     giveVal();
-    var cost = val / 4;
-    return document.getElementById('crCos').value = cost;
+    var cost = val / 3;
+    return document.getElementById('crCos').value = cost.toFixed(2);
 }
 
 function giveVal() {
@@ -91,39 +140,45 @@ function progressCheck() {
     return prog;
 }
 
+function elementPainter(bgC) {
+	var elementSelect = document.getElementsByClassName('messages');
+	var i;
+	for (i = 0; i < elementSelect.length; i++) {
+			elementSelect[i].style.backgroundColor = bgC;
+			elementSelect[i].style.boxShadow = "5px 5px " + bgC + "46";
+		}
+}
+
 function craftCalc() {
     var progIn = document.getElementById('inputProgress');
     var minIn = document.getElementById('inputMinutes');
     var hourIn = document.getElementById('inputHours');
+    var dayIn = document.getElementById('inputDays');
     var totalTimeHours;
     var totalTimeMinutes;
+    var totalTimeDays;
     var sp = val * 10;
 
     optionCheck();
     progressCheck();
 
-    totalTimeHours = ((weekDays / u15mod) / ((prog - sp) / sp) * workHours) / sA;
-    totalTimeMinutes = totalTimeHours * 60;
+    if (prog-sp <= 0) {
+    	totalTimeHours = (workHours * (weekDays / u15mod))/sA;
+    	totalTimeMinutes = totalTimeHours * 60
+    	totalTimeDays = totalTimeHours / workHours;
+
+    	elementPainter("#B12717");
+    } else {
+    	totalTimeHours = ((weekDays / u15mod) / ((prog - sp) / sp) * workHours) / sA;
+	    totalTimeDays = totalTimeHours / workHours;
+	    totalTimeMinutes = totalTimeHours * 60;
+
+	    elementPainter("#1EBD3B");
+    }
 
     progIn.innerHTML = prog + " / " + sp;
-    hourIn.innerHTML = totalTimeHours.toFixed(2);
-    minIn.innerHTML = totalTimeMinutes.toFixed(2);
-            
-    if (prog - sp <= 0) {
-        document.getElementById('hours').style.display = 'none';
-        document.getElementById('minutes').style.display = 'none';
-        document.getElementById('timeLabel').style.display = 'none';
-        document.getElementById('progress').style.display = 'block';
+    hourIn.innerHTML = totalTimeHours.toFixed(1);
+    minIn.innerHTML = totalTimeMinutes.toFixed(1);
+    dayIn.innerHTML = totalTimeDays.toFixed(1);
 
-    } else {
-        if (document.getElementById('timeToggle').checked === true) {
-            document.getElementById('hours').style.display = 'block';
-            document.getElementById('timeLabel').style.display = 'block';
-            document.getElementById('progress').style.display = 'none';
-        } else {
-            document.getElementById('minutes').style.display = 'block';
-            document.getElementById('timeLabel').style.display = 'block';
-            document.getElementById('progress').style.display = 'none';
-        }
-    }
 }
