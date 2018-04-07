@@ -86,4 +86,18 @@ label {
 	background-color: #202020;
 	padding: 2em;
 	border-radius: 5px;
+	position: relative;
+}
+
+.sidenote {
+	font-size: .7em;
+	text-align: right;
+	position: absolute;
+	bottom: .1em;
+	right: 1em;
+	color: #AFAFAF;
+}
+
+.sidenote > a {
+	color: #B12717FF;
 }
