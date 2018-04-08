@@ -131,7 +131,7 @@ function checkMasterAlchemist() {
 function progressCheck() {
     var check = Number(document.getElementById('crC').value);
     var DC = Number(document.getElementById('itDC').value);
-    var DCmod = Number(document.getElementById('modDC').value);
+    var DCmod = Number(document.getElementById('difficultyModifier').value);
     if (DCmod > 0) {
         prog = ((check * u5mod) * (DC + DCmod) * mA);
     } else {
