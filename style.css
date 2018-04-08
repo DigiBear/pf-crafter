@@ -4,6 +4,8 @@ body {
 	font-size: 16px;
 }
 
+
+
 #messaging h1 {
 	background-color: #B12717FF;
 	box-shadow: 5px 5px #B1271746;
@@ -113,7 +115,7 @@ input:read-only {
 
 .wrapper {
 	background-color: #202020;
-	padding: 2em;
+	padding: .5em;
 	border-radius: 5px;
 	position: relative;
 	width: 80vw;
@@ -130,4 +132,14 @@ input:read-only {
 
 .sidenote > a {
 	color: #B12717FF;
+}
+
+@media only screen and (min-width: 768px) {
+	body {
+		font-size: 12px;
+	}
+
+	h1 {
+		font-size: 1.6em;
+	}
 }
